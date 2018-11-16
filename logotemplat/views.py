@@ -158,7 +158,9 @@ class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
     def get_queryset(self):
         machine_list = int(self.request.query_params.get("machine_list", 0))
         if machine_list == 1:
-            return self.get_machine_list(self.queryset)
+            res = self.get_machine_list(self.queryset)
+            print("res--------->", res)
+            return res
         else:
             return self.queryset
 
