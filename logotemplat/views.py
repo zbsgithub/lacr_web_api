@@ -5,6 +5,7 @@ from .models import LogoTemplate
 from .filter import LogoTempFilters
 from django.db.models import Count
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 
 class MachineView(APIView):
@@ -38,6 +39,8 @@ class MachineView(APIView):
     serializer_class = MachineListSerializer
     queryset = LogoTemplate.objects.values_list("machine")\
         .annotate(model_num=Count("machine")).values("machine", "model_num")
+
+    def get(self, req, *args, **kwargs):
 
     # @staticmethod
     # def get_machine_list(queryset):
@@ -169,3 +172,39 @@ class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
     serializer_class = LogoTemplateSerializer
     queryset = LogoTemplate.objects.all()
     filter_class = LogoTempFilters
+
+    @staticmethod
+    def get_machine_list(queryset):
+        return queryset.values_list("machine").annotate(model_num=Count("machine")).values("machine", "model_num")
+
+    def get_queryset(self):
+        machine_list = int(self.request.query_params.get("machine_list", 0))
+        if machine_list == 1:
+            return self.get_machine_list(self.queryset)
+        else:
+            return self.queryset
+
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            page = list(page)
+            try:
+                for product in page:
+                    print("-----", product)
+            except Exception:
+                pass
+
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        queryset = list(queryset)
+        try:
+            for product in queryset:
+                print("-----", product)
+        except Exception:
+            pass
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
