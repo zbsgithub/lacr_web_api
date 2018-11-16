@@ -6,8 +6,27 @@ from django.db.models import Count
 
 
 class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
-                   mixins.UpdateModelMixin):
+                   mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     """
+    delete:
+
+    > 删除
+
+    - `设置校验位: ` http://47.93.181.56:5081/logotemplat/template/{模型id}
+
+
+    patch:
+
+    > 设置
+
+    - `设置校验位: ` http://47.93.181.56:5081/logotemplat/template/{模型id}
+
+    - `请求数据: `
+
+            {
+                "checked": true,
+            }
+
     list:
 
     > 台标特征列表
