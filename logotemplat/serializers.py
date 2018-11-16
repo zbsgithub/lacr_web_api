@@ -16,7 +16,7 @@ class LogoTemplateSerializer(serializers.ModelSerializer):
 
 
 class MachineListSerializer(serializers.Serializer):
-    model_num = serializers.BooleanField(read_only=True, help_text="模型数目")
+    model_num = serializers.IntegerField(read_only=True, help_text="模型数目")
 
     class Meta:
         model = LogoTemplate
