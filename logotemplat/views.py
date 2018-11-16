@@ -38,7 +38,7 @@ class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
 
             {
                 "count": 1548,
-                "next": "http://47.93.181.56:5081/logotemplat/template/?machine_list=1&page=2",
+                "next": "下一页地址",
                 "previous": null,
                 "results": [
                     {
