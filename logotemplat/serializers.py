@@ -15,11 +15,9 @@ class LogoTemplateSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class MachineListSerializer(serializers.ModelSerializer):
+class MachineListSerializer(serializers.Serializer):
     model_num = serializers.IntegerField(help_text="模型数目")
+    machine = serializers.CharField(help_text="设备名称")
 
-    class Meta:
-        model = LogoTemplate
-        fields = ("machine", "model_num")
 
 
