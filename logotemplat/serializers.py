@@ -15,5 +15,10 @@ class LogoTemplateSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class MachineListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = LogoTemplate
+        fields = ("machine", )
 
 
