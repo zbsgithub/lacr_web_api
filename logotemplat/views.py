@@ -149,12 +149,16 @@ class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
             return self.queryset
 
     def get_serializer_class(self):
-        machine_list = int(self.request.query_params.get("machine_list", 0))
+        machine_list = 0
+        try:
+            machine_list = int(self.request.query_params.get("machine_list", 0))
+        except:
+            pass
+
         if machine_list == 1:
             return MachineListSerializer
         else:
             return self.serializer_class
-
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
