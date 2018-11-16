@@ -137,7 +137,16 @@ class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
 
     @staticmethod
     def get_machine_list(queryset):
-        return queryset.values_list("machine").annotate(model_num=Count("machine")).values("machine", "model_num")
+        res = []
+        query_res = queryset.values_list("machine").annotate(model_num=Count("machine")).values("machine", "model_num")
+
+        for machine, model_num in query_res:
+            res.append({
+                "machine": machine,
+                "model_num": model_num
+            })
+
+        return res
 
     def get_serializer_class(self):
         machine_list = int(self.request.query_params.get("machine_list", 0))
