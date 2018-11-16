@@ -159,27 +159,3 @@ class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
             return MachineListSerializer
         else:
             return self.serializer_class
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            page = list(page)
-            try:
-                for product in page:
-                    print("-----", product)
-            except Exception:
-                pass
-
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-        queryset = list(queryset)
-        try:
-            for product in queryset:
-                print("-----", product)
-        except Exception:
-            pass
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
