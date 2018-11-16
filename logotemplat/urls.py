@@ -9,6 +9,7 @@ router = DefaultRouter()
 router.register('template', views.LogoTempView)
 
 urlpatterns = [
+    re_path('^machine_list', views.MachineView),
     re_path('^', include(router.urls))
 ]
 

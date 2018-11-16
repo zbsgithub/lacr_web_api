@@ -1,8 +1,65 @@
 from rest_framework import viewsets, mixins
+from rest_framework.views import APIView
 from .serializers import LogoTemplateSerializer, MachineListSerializer
 from .models import LogoTemplate
 from .filter import LogoTempFilters
 from django.db.models import Count
+from rest_framework.permissions import AllowAny
+
+
+class MachineView(APIView):
+    """
+    list:
+
+    > 获取设备列表
+
+    - `所有设备列表: ` http://47.93.181.56:5081/logotemplat/template/?machine_list=1
+
+            {
+                "count": 1548,
+                "next": "http://47.93.181.56:5081/logotemplat/template/?machine_list=1&page=2",
+                "previous": null,
+                "results": [
+                    {
+
+                        "machine": "机器名1"
+                        # 已有特征数
+                        "model_num": 1
+                    },
+                    {
+                        "machine": "机器名2"
+                        "model_num": 1
+                    },
+                    ...
+                ]
+            }
+    """
+    permission_classes = (AllowAny, )
+    serializer_class = MachineListSerializer
+    queryset = LogoTemplate.objects.values_list("machine")\
+        .annotate(model_num=Count("machine")).values("machine", "model_num")
+
+    # @staticmethod
+    # def get_machine_list(queryset):
+    #     # res = []
+    #     return queryset.values_list("machine").annotate(model_num=Count("machine")).values("machine", "model_num")
+    #
+    #     # for machine, model_num in query_res:
+    #     #     res.append({
+    #     #         "machine": machine,
+    #     #         "model_num": model_num
+    #     #     })
+    #     #
+    #     # return res
+
+    # def get_queryset(self):
+    #     machine_list = int(self.request.query_params.get("machine_list", 0))
+    #     if machine_list == 1:
+    #         res = self.get_machine_list(self.queryset)
+    #         print("res--------->", res)
+    #         return res
+    #     else:
+    #         return self.queryset
 
 
 class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
@@ -30,28 +87,6 @@ class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
     list:
 
     > 台标特征列表
-
-    - `所有设备列表: ` http://47.93.181.56:5081/logotemplat/template/?machine_list=1
-
-            {
-                "count": 1548,
-                "next": "http://47.93.181.56:5081/logotemplat/template/?machine_list=1&page=2",
-                "previous": null,
-                "results": [
-                    {
-
-                        "machine": "机器名1"
-                        # 已有特征数
-                        "model_num": 1
-                    },
-                    {
-                        "machine": "机器名2"
-                        "model_num": 1
-                    },
-                    ...
-                ]
-            }
-
 
 
     - `指定设备的特征: ` http://47.93.181.56:5081/logotemplat/template/?machine=设备名字
@@ -134,34 +169,3 @@ class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
     serializer_class = LogoTemplateSerializer
     queryset = LogoTemplate.objects.all()
     filter_class = LogoTempFilters
-
-    @staticmethod
-    def get_machine_list(queryset):
-        res = []
-        query_res = queryset.values_list("machine").annotate(model_num=Count("machine")).values("machine", "model_num")
-
-        for machine, model_num in query_res:
-            res.append({
-                "machine": machine,
-                "model_num": model_num
-            })
-
-        return res
-
-    def get_serializer_class(self):
-        machine_list = int(self.request.query_params.get("machine_list", 0))
-        if machine_list == 1:
-            return MachineListSerializer
-        else:
-            return LogoTemplateSerializer
-
-    def get_queryset(self):
-        machine_list = int(self.request.query_params.get("machine_list", 0))
-        if machine_list == 1:
-            res = self.get_machine_list(self.queryset)
-            print("res--------->", res)
-            return res
-        else:
-            return self.queryset
-
-
