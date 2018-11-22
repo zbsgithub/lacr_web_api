@@ -26,7 +26,7 @@ class LogoTemplateListSerializer(serializers.ListSerializer):
         ret = []
         for item in validated_data:
             print("valid data: ", validated_data)
-            item_instance = LogoTemplate.objects.get(pk=validated_data.get["id"])
+            item_instance = LogoTemplate.objects.get(pk=item.get["id"])
             item.pop("id", -1)
             ret.append(self.update(item_instance, item))
 
