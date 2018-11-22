@@ -201,6 +201,18 @@ class BatchOperatorLogoTempView(viewsets.ModelViewSet):
     serializer_class = LogoTemplateBulkSerializer
     filter_class = LogoTempFilters
 
+
+    def get_serializer(self, *args, **kwargs):
+        try:
+            data = kwargs.get('data', None)
+            assert data
+            if isinstance(data, list):
+                kwargs["many"] = True
+        except AssertionError:
+            pass
+
+        return super(BatchOperatorLogoTempView, self).get_serializer(*args, **kwargs)
+
     def multi_destroy(self):
         queryset = self.queryset
 
