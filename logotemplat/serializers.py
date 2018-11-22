@@ -22,14 +22,11 @@ class MachineListSerializer(serializers.Serializer):
 
 class LogoTemplateListSerializer(serializers.ListSerializer):
     def create(self, validated_data):
-        print("list serializer------------------>: ", validated_data)
         ret = []
         for item in validated_data:
             print("valid data: ", validated_data)
             my_id = item["id"]
-            print("id----------------->", my_id)
             item_instance = LogoTemplate.objects.get(pk=my_id)
-            print("instance---------------->", item_instance)
             item.pop("id", -1)
             ret.append(self.child.update(item_instance, item))
 
@@ -38,10 +35,13 @@ class LogoTemplateListSerializer(serializers.ListSerializer):
 
 class LogoTemplateBulkSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(default=-1, help_text=u"分类id")
+    gzchname = serializers.CharField(required=False)
+    gzchtype = serializers.CharField(required=False)
+
 
     class Meta:
         model = LogoTemplate
-        fields = ("id", "checked")
+        fields = ("id", "checked", "gzchname", "gzchtype")
         list_serializer_class = LogoTemplateListSerializer
 
     def update(self, instance, data):
