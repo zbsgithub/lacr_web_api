@@ -28,7 +28,7 @@ class LogoTemplateListSerializer(serializers.ListSerializer):
             print("valid data: ", validated_data)
             item_instance = LogoTemplate.objects.get(pk=validated_data.get["id"])
             item.pop("id", -1)
-            ret.append(self.child.update(item_instance, item))
+            ret.append(self.update(item_instance, item))
 
         return ret
 
@@ -38,5 +38,10 @@ class LogoTemplateBulkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LogoTemplate
-        fields = "__all__"
+        fields = ("id", "checked")
         list_serializer_class = LogoTemplateListSerializer
+
+    def create(self, validated_data):
+        print("create-----------> ", validated_data)
+        return super(LogoTemplateBulkSerializer, self).create(validated_data)
+
