@@ -41,7 +41,6 @@ class LogoTemplateBulkSerializer(serializers.ModelSerializer):
         fields = ("id", "checked")
         list_serializer_class = LogoTemplateListSerializer
 
-    def create(self, validated_data):
-        print("create-----------> ", validated_data)
-        return super(LogoTemplateBulkSerializer, self).create(validated_data)
+    def update(self, instance, data):
+        return super(LogoTemplateBulkSerializer, self).update(instance, data)
 
