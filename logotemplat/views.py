@@ -1,12 +1,16 @@
 from rest_framework import viewsets, mixins
 from rest_framework.views import APIView
-from .serializers import LogoTemplateSerializer, MachineListSerializer
+from .serializers import LogoTemplateSerializer, MachineListSerializer,LogoTemplateBulkSerializer
 from .models import LogoTemplate
 from .filter import LogoTempFilters
 from django.db.models import Count
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-
+from rest_framework.status import *
+import rest_framework.status as status
+from rest_framework.decorators import api_view, permission_classes
+from django.shortcuts import *
+import logging
 
 class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
                    mixins.UpdateModelMixin, mixins.DestroyModelMixin):
@@ -159,3 +163,93 @@ class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
             return MachineListSerializer
         else:
             return self.serializer_class
+
+# class LogotemplatBatchOperaView(viewsets.ModelViewSet):
+#
+#     """
+#     batch_delete:
+#
+#     > 批量删除
+#
+#     - `批量删除: ` http://47.93.181.56:5081/logotemplat/template/batch_delete
+#
+#     """
+#
+#     queryset = LogoTemplate.objects.all()
+#     serializer_class = LogoTemplateBulkSerializer
+#     filter_class = LogoTempFilters
+#
+#     def batch_list(self):
+#         return self.queryset
+#
+#     def batch_delete(self):
+#         print('------------------------')
+#         array = self.request.POST.getlist('ids')  # django接收数组
+#         idstring = ','.join(array)
+#         LogoTemplate.objects.extra(where=['id IN (' + idstring + ')']).delete()
+#         return self.serializer_class
+#
+#     def perform_destroy(self, instance):
+#         pass
+
+"""
+批量操作
+"""
+class BatchOperatorLogoTempView(viewsets.ModelViewSet):
+    # permission_classes = (AllowAny)
+    queryset = LogoTemplate.objects.all()
+    serializer_class = LogoTemplateBulkSerializer
+    filter_class = LogoTempFilters
+
+    def multi_destroy(self):
+        queryset = self.queryset
+
+        # Perform the lookup filtering.
+        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+
+        assert lookup_url_kwarg in self.kwargs, (
+                'Expected view %s to be called with a URL keyword argument '
+                'named "%s". Fix your URL conf, or set the `.lookup_field` '
+                'attribute on the view correctly.' %
+                (self.__class__.__name__, lookup_url_kwarg)
+        )
+
+        lookup_url_value = self.kwargs[lookup_url_kwarg]
+        lookup_url_value_list = lookup_url_value.split(',')
+        print("list: ", lookup_url_value_list)
+
+        # for lookup_url_value in lookup_url_value_list:
+        #     filter_kwargs = {self.lookup_field: lookup_url_value}
+        #     obj = get_object_or_404(queryset, **filter_kwargs)
+        #     self.perform_destroy(obj)
+
+        return Response(status=status.HTTP_200_OK)
+
+    def destroy(self, request, *args, **kwargs):
+        print("批量删除：-------------------")
+        return self.multi_destroy()
+
+    # def partial_update(self, request, *args, **kwargs):
+    #
+    #     print("批量修改：")
+    #     queryset = self.queryset
+    #
+    #     # Perform the lookup filtering.
+    #     lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+    #
+    #     assert lookup_url_kwarg in self.kwargs, (
+    #             'Expected view %s to be called with a URL keyword argument '
+    #             'named "%s". Fix your URL conf, or set the `.lookup_field` '
+    #             'attribute on the view correctly.' %
+    #             (self.__class__.__name__, lookup_url_kwarg)
+    #     )
+    #
+    #     lookup_url_value = self.kwargs[lookup_url_kwarg]
+    #     lookup_url_value_list = lookup_url_value.split(',')
+    #     print("list: ", lookup_url_value_list)
+    #     for lookup_url_value in lookup_url_value_list:
+    #         filter_kwargs = {self.lookup_field: lookup_url_value}
+    #         obj = get_object_or_404(queryset, **filter_kwargs)
+    #         self.perform_update(obj)
+    #
+    #     return Response(status=status.HTTP_200_OK)

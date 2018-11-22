@@ -7,6 +7,8 @@ from . import views
 
 router = DefaultRouter()
 router.register('template', views.LogoTempView)
+# router.register('operat_tem',views.LogotemplatBatchOperaView)
+router.register('batch_opera',views.BatchOperatorLogoTempView)
 
 urlpatterns = [
     re_path('^', include(router.urls))
