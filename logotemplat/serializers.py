@@ -31,7 +31,7 @@ class LogoTemplateListSerializer(serializers.ListSerializer):
             item_instance = LogoTemplate.objects.get(pk=my_id)
             print("instance---------------->", item_instance)
             item.pop("id", -1)
-            ret.append(self.update(item_instance, item))
+            ret.append(self.child.update(item_instance, item))
 
         return ret
 
