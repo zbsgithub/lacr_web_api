@@ -22,7 +22,7 @@ class MachineListSerializer(serializers.Serializer):
 
 class LogoTemplateListSerializer(serializers.ListSerializer):
     def create(self, validated_data):
-
+        print("list serializer------------------>: ", validated_data)
         ret = []
         for item in validated_data:
             print("valid data: ", validated_data)
