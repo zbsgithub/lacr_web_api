@@ -203,6 +203,7 @@ class BatchOperatorLogoTempView(viewsets.ModelViewSet):
 
 
     def get_serializer(self, *args, **kwargs):
+        print("kwargs----------->", kwargs)
         try:
             data = kwargs.get('data', None)
             assert data
