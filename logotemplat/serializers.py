@@ -20,16 +20,20 @@ class MachineListSerializer(serializers.Serializer):
     machine = serializers.CharField(help_text="设备名字")
 
 
-
 class LogoTemplateListSerializer(serializers.ListSerializer):
     def create(self, validated_data):
-        print("valid data: ", validated_data)
-        return super(LogoTemplateListSerializer, self).create(validated_data)
 
-    def update(self, instance, validated_data):
-        return super(LogoTemplateSerializer, self).update(instance, validated_data)
+        ret = []
+        for item in validated_data:
+            print("valid data: ", validated_data)
+            item_instance = LogoTemplate.objects.get(pk=validated_data.get["id"])
+            ret.append(self.child.update(item_instance, item))
+
+        return ret
+
 
 class LogoTemplateBulkSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(default=-1, help_text=u"分类id")
 
     class Meta:
         model = LogoTemplate
