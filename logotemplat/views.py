@@ -10,6 +10,8 @@ from rest_framework.status import *
 import rest_framework.status as status
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import *
+from django.shortcuts import get_object_or_404
+
 import logging
 
 class LogoTempView(viewsets.GenericViewSet, mixins.ListModelMixin,
