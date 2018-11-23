@@ -241,7 +241,6 @@ class BatchOperatorLogoTempView(viewsets.ModelViewSet):
         return Response(status=status.HTTP_200_OK)
 
     def destroy(self, request, *args, **kwargs):
-        print("批量删除：-------------------")
         return self.multi_destroy()
 
     # def partial_update(self, request, *args, **kwargs):
