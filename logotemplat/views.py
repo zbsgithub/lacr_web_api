@@ -221,6 +221,7 @@ class BatchOperatorLogoTempView(viewsets.ModelViewSet):
 
         # Perform the lookup filtering.
         lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+        print("lookup url kwarg: ", lookup_url_kwarg)
 
         assert lookup_url_kwarg in self.kwargs, (
                 'Expected view %s to be called with a URL keyword argument '
@@ -230,6 +231,7 @@ class BatchOperatorLogoTempView(viewsets.ModelViewSet):
         )
 
         lookup_url_value = self.kwargs[lookup_url_kwarg]
+        print("look up url value: ", lookup_url_value)
         lookup_url_value_list = lookup_url_value.split(',')
         print("list: ", lookup_url_value_list)
 
