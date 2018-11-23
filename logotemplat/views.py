@@ -231,10 +231,10 @@ class BatchOperatorLogoTempView(viewsets.ModelViewSet):
         lookup_url_value_list = lookup_url_value.split(',')
         print("list: ", lookup_url_value_list)
 
-        # for lookup_url_value in lookup_url_value_list:
-        #     filter_kwargs = {self.lookup_field: lookup_url_value}
-        #     obj = get_object_or_404(queryset, **filter_kwargs)
-        #     self.perform_destroy(obj)
+        for lookup_url_value in lookup_url_value_list:
+            filter_kwargs = {self.lookup_field: lookup_url_value}
+            obj = get_object_or_404(queryset, **filter_kwargs)
+            self.perform_destroy(obj)
 
         return Response(status=status.HTTP_200_OK)
 
