@@ -30,14 +30,14 @@ class ChannelNameSerializer(serializers.ModelSerializer):
 
 
 class ChNameCreateSerializer(serializers.ModelSerializer):
-    channels = ChannelNameSerializer(help_text="频道名称")
+    channelnames = ChannelNameSerializer(help_text="频道名称")
 
     class Meta:
         model = ChannelType
-        fields = ("name", "alias", "channels")
+        fields = ("name", "alias", "channelnames")
 
     def create(self, validated_data):
-        channels_valid_data = validated_data.pop("channels")
+        channels_valid_data = validated_data.pop("channelnames")
 
         type_obj = ChannelType.objects.create(**validated_data)
         channels_valid_data["classify"] = type_obj
