@@ -39,8 +39,8 @@ class ChNameCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         channels_valid_data = validated_data.pop("channels")
 
-        type_obj = ChannelType.objects.create(validated_data)
+        type_obj = ChannelType.objects.create(**validated_data)
         channels_valid_data["classify"] = type_obj
-        ChannelName.objects.create(channels_valid_data)
+        ChannelName.objects.create(**channels_valid_data)
 
         return type_obj
