@@ -39,6 +39,7 @@ class ChNameCreateSerializer(serializers.ModelSerializer):
         fields = ("name", "alias", "channelnames")
 
     def create(self, validated_data):
+        print("not type exist-------------", validated_data)
         channels_valid_data = validated_data.pop("channelnames")
 
         try:
