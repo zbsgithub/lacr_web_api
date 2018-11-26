@@ -1,7 +1,12 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import ChannelType, ChannelName
 
-admin.site.register(ChannelType)
-admin.site.register(ChannelName)
+
+class ChannelTypeAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "alias")
+admin.site.register(ChannelType, ChannelTypeAdmin)
+
+
+class ChannelNameAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "alias")
+admin.site.register(ChannelName, ChannelNameAdmin)
