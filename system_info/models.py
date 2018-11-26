@@ -38,7 +38,7 @@ class ChannelType(models.Model):
     class Meta:
         verbose_name = "频道类型信息"
         verbose_name_plural = verbose_name
-        db_type = "channel_type"
+        db_table = "channel_type"
 
 
 class ChannelName(models.Model):
@@ -52,5 +52,5 @@ class ChannelName(models.Model):
     class Meta:
         verbose_name = "频道名称信息"
         verbose_name_plural = verbose_name
-        db_type = "channel_name"
+        db_table = "channel_name"
 
