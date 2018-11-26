@@ -30,7 +30,7 @@ class ChannelNameSerializer(serializers.ModelSerializer):
 
 
 class ChNameCreateSerializer(serializers.ModelSerializer):
-    channels = ChannelNameSerializer(help_text="频道名称", many=True)
+    channels = ChannelNameSerializer(help_text="频道名称")
 
     class Meta:
         model = ChannelType
