@@ -7,6 +7,8 @@
 # @Software: PyCharm
 from .models import Company,Brand, ChannelType, ChannelName
 from rest_framework import serializers
+from django.core.exceptions import ObjectDoesNotExist
+
 
 class CompanySerializer(serializers.ModelSerializer):
 
@@ -39,8 +41,14 @@ class ChNameCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         channels_valid_data = validated_data.pop("channelnames")
 
-        type_obj = ChannelType.objects.create(**validated_data)
-        channels_valid_data["classify"] = type_obj
-        ChannelName.objects.create(**channels_valid_data)
+        try:
+            type_obj = ChannelType.objects.get(name=validated_data["name"])
+        except ObjectDoesNotExist:
+            type_obj = ChannelType.objects.create(**validated_data)
+
+        try:
+            ChannelName.objects.get(name=channels_valid_data["name"])
+        except ObjectDoesNotExist:
+            ChannelName.objects.create(**validated_data)
 
         return type_obj
