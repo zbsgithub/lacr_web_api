@@ -44,11 +44,13 @@ class ChNameCreateSerializer(serializers.ModelSerializer):
         try:
             type_obj = ChannelType.objects.get(name=validated_data["name"])
         except ObjectDoesNotExist:
+            print("not type exist-------------")
             type_obj = ChannelType.objects.create(**validated_data)
 
         try:
             ChannelName.objects.get(name=channels_valid_data["name"])
         except ObjectDoesNotExist:
+            print("not name exist-------------")
             ChannelName.objects.create(**validated_data)
 
         return type_obj
