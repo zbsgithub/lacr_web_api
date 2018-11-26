@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets, mixins
-from .models import Brand,Company
+from .models import Brand,Company, ChannelType
 from .serializers import CompanySerializer,BrandSerializer
+from .serializers import ChNameCreateSerializer
 
 # Create your views here.
 
@@ -15,3 +16,8 @@ class CompanyView(viewsets.ModelViewSet):
 class BrandView(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
+
+
+class ChCreateView(viewsets.GenericViewSet, mixins.CreateModelMixin):
+    queryset = ChannelType.objects.all()
+    serializer_class = ChNameCreateSerializer

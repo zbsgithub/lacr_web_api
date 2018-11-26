@@ -14,6 +14,7 @@ from . import views
 router = DefaultRouter()
 router.register('company', views.CompanyView)
 router.register('brand', views.BrandView)
+router.register('chtype', views.ChCreateView)
 
 urlpatterns = [
     re_path('^', include(router.urls))
