@@ -40,6 +40,9 @@ class ChannelType(models.Model):
         verbose_name_plural = verbose_name
         db_table = "channel_type"
 
+    def __str__(self):
+        return self.name
+
 
 class ChannelName(models.Model):
     classify = models.ForeignKey(ChannelType, related_name="channelnames", on_delete=models.SET_NULL, null=True,
@@ -54,4 +57,7 @@ class ChannelName(models.Model):
         verbose_name = "频道名称信息"
         verbose_name_plural = verbose_name
         db_table = "channel_name"
+
+    def __str__(self):
+        return self.name
 
