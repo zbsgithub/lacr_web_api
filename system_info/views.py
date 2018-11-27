@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from rest_framework import viewsets, mixins
-from .models import Brand,Company, ChannelType
+from .models import Brand,Company, ChannelType, ChannelName
 from .serializers import CompanySerializer,BrandSerializer
-from .serializers import ChNameCreateSerializer
+from .serializers import ChNameSerializer, ChTypeSerializer
+from .filter import ChannelNameFilters, ChannelTypeFilters
 
-# Create your views here.
 
 class CompanyView(viewsets.ModelViewSet):
     queryset = Company.objects.all()
@@ -18,7 +18,15 @@ class BrandView(viewsets.ModelViewSet):
     serializer_class = BrandSerializer
 
 
-class ChCreateView(viewsets.GenericViewSet, mixins.CreateModelMixin,
-                   mixins.ListModelMixin):
+class ChTypeViewSet(viewsets.ModelViewSet):
     queryset = ChannelType.objects.all()
-    serializer_class = ChNameCreateSerializer
+    serializer_class = ChTypeSerializer
+    filter_class = ChannelTypeFilters
+
+
+class ChNameViewSet(viewsets.ModelViewSet):
+    queryset = ChannelName.objects.all()
+    serializer_class = ChNameSerializer
+    filter_class = ChannelNameFilters
+
+

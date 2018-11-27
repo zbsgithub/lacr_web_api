@@ -28,31 +28,24 @@ class BrandSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ChannelNameSerializer(serializers.ModelSerializer):
+class ChNameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ChannelName
         fields = "__all__"
 
-
-class ChNameCreateSerializer(serializers.ModelSerializer):
-    channelnames = ChannelNameSerializer(help_text="频道名称")
-
-    class Meta:
-        model = ChannelType
-        fields = ("name", "alias", "channelnames")
-
     def create(self, validated_data):
-        channels_valid_data = validated_data.pop("channelnames")
-
-        type_obj = ChannelType.objects.create(**validated_data)
-
-        channel_id = channels_valid_data["chid"]
+        channel_id = validated_data["chid"]
         if not channel_id:
             channel_id = uuid.uuid4()
             cur_time = datetime.datetime.now()
-            channels_valid_data["chid"] = "%s-%2d%s" % (channel_id, cur_time.second, cur_time.microsecond)
+            validated_data["chid"] = "%s-%2d%s" % (channel_id, cur_time.second, cur_time.microsecond)
 
-        ChannelName.objects.create(**channels_valid_data)
+        return super(ChNameSerializer, self).create(validated_data)
 
-        return type_obj
+
+class ChTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ChannelType
+        fields = "__all__"

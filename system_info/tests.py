@@ -15,6 +15,8 @@ def inner_category_en():
         }
     }
 
+    type_resp
+
     req_url = "http://47.93.181.56:5081/systeminfo/chtype/"
 
     resp = requests.post(req_url, json=data)
