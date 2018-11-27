@@ -36,7 +36,7 @@ class ChNameSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         channel_id = validated_data["chid"]
-        if not channel_id:
+        if "NONE" == channel_id:
             channel_id = uuid.uuid4()
             cur_time = datetime.datetime.now()
             validated_data["chid"] = "%s-%2d%s" % (channel_id, cur_time.second, cur_time.microsecond)
