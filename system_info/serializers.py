@@ -11,7 +11,6 @@ import uuid
 import datetime
 from utils.serializers import Base64ImageField
 
-from django.core.exceptions import ObjectDoesNotExist
 
 
 class CompanySerializer(serializers.ModelSerializer):
