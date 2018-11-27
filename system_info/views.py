@@ -18,6 +18,7 @@ class BrandView(viewsets.ModelViewSet):
     serializer_class = BrandSerializer
 
 
-class ChCreateView(viewsets.GenericViewSet, mixins.CreateModelMixin):
+class ChCreateView(viewsets.GenericViewSet, mixins.CreateModelMixin,
+                   mixins.ListModelMixin):
     queryset = ChannelType.objects.all()
     serializer_class = ChNameCreateSerializer
