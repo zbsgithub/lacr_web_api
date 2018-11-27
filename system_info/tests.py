@@ -3,6 +3,7 @@ from django.test import TestCase
 # Create your tests here.
 import requests
 import json
+import base64
 
 
 def inner_category_en():
@@ -11,11 +12,16 @@ def inner_category_en():
         "alias": "卫视, 卫视频道",
     }
 
+    s = open("/Users/dkos/Downloads/130_4482490c-dfec-11e8-8fb9-00163e002cf2.jpg", "rb")
+    base64_content = base64.b64encode(s.read())
+    print(base64_content)
+
     data_name = {
         "classify": "",
         "chid": "NONE",
         "name": "青海卫视",
-        "alias": "青海卫视, 青海卫视频道"
+        "alias": "青海卫视, 青海卫视频道",
+        "image": "data:image/jpg;base64," + str(base64_content, encoding="utf-8"),
     }
 
     req_url = "http://47.93.181.56:5081/systeminfo/chtype/"
