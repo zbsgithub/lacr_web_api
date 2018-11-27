@@ -42,9 +42,6 @@ class ChNameCreateSerializer(serializers.ModelSerializer):
         model = ChannelType
         fields = ("name", "alias", "channelnames")
 
-    def is_valid(self, raise_exception=False):
-        pass
-
     def create(self, validated_data):
         channels_valid_data = validated_data.pop("channelnames")
 
