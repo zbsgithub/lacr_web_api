@@ -14,7 +14,6 @@ from utils.serializers import Base64ImageField
 
 
 class CompanySerializer(serializers.ModelSerializer):
-    image = Base64ImageField(help_text="台标图片")
 
     class Meta:
         model = Company
@@ -29,6 +28,7 @@ class BrandSerializer(serializers.ModelSerializer):
 
 
 class ChNameSerializer(serializers.ModelSerializer):
+    image = Base64ImageField(help_text="台标图片")
 
     class Meta:
         model = ChannelName
