@@ -9,6 +9,7 @@ def inner_category_en():
         "name": "卫视",
         "alias": "卫视, 卫视频道",
         "channelnames": {
+            "chid": "",
             "name": "青海卫视",
             "alias": "青海卫视, 青海卫视频道"
         }

@@ -42,9 +42,16 @@ class ChNameCreateSerializer(serializers.ModelSerializer):
         model = ChannelType
         fields = ("name", "alias", "channelnames")
 
+    def is_valid(self, raise_exception=False):
+        return True
+
     def create(self, validated_data):
         channels_valid_data = validated_data.pop("channelnames")
-        type_obj = ChannelType.objects.create(**validated_data)
+
+        try:
+            type_obj = ChannelType.objects.get(name=validated_data["name"])
+        except ObjectDoesNotExist:
+            type_obj = ChannelType.objects.create(**validated_data)
 
         channel_id = channels_valid_data["chid"]
         if not channel_id:
@@ -52,5 +59,9 @@ class ChNameCreateSerializer(serializers.ModelSerializer):
             cur_time = datetime.datetime.now()
             channels_valid_data["chid"] = "%s-%2d%s" % (channel_id, cur_time.second, cur_time.microsecond)
 
-        ChannelName.objects.create(**channels_valid_data)
+        try:
+            ChannelName.objects.get(name=channels_valid_data["name"])
+        except ObjectDoesNotExist:
+            ChannelName.objects.create(**channels_valid_data)
+
         return type_obj
