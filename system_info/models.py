@@ -50,6 +50,7 @@ class ChannelName(models.Model):
     chid = models.CharField(max_length=65, default=None, verbose_name="频道id", help_text="频道id")
     name = models.CharField(max_length=200, verbose_name="频道名称", help_text="频道名称", unique=True)
     alias = models.CharField(max_length=200, verbose_name="频道别名", help_text="频道别名")
+    image = models.ImageField(upload_to="system_info/std_channel/", verbose_name="频道图片", help_text="频道图片")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="更新时间", help_text="更新时间")
 

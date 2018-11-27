@@ -9,12 +9,13 @@ from .models import Company,Brand, ChannelType, ChannelName
 from rest_framework import serializers
 import uuid
 import datetime
-
+from utils.serializers import Base64ImageField
 
 from django.core.exceptions import ObjectDoesNotExist
 
 
 class CompanySerializer(serializers.ModelSerializer):
+    image = Base64ImageField(help_text="台标图片")
 
     class Meta:
         model = Company
