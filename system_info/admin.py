@@ -8,5 +8,5 @@ admin.site.register(ChannelType, ChannelTypeAdmin)
 
 
 class ChannelNameAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "alias", "classify")
+    list_display = ("id", "name", "alias", "chid", "classify")
 admin.site.register(ChannelName, ChannelNameAdmin)
