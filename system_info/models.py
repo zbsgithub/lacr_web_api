@@ -43,6 +43,10 @@ class ChannelType(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def get_channel_count(self):
+        return self.channelnames.count()
+
 
 class ChannelName(models.Model):
     classify = models.ForeignKey(ChannelType, related_name="channelnames", on_delete=models.SET_NULL, null=True,
@@ -62,4 +66,3 @@ class ChannelName(models.Model):
 
     def __str__(self):
         return self.name
-

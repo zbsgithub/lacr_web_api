@@ -18,7 +18,3 @@ class ChannelNameFilters(filters.FilterSet):
     class Meta:
         model = ChannelName
         fields = ["name", ]
-
-
-
-
