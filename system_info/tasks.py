@@ -86,16 +86,34 @@ def task_archive_statistic(archive_path):
                 logging.error("archive dir no exist %s", last_archive_dir)
                 continue
 
+            slave_statistic[archive] = {
+                "name": archive,
+                "num": len(os.listdir(last_archive_dir)) - 1,
+            }
 
-
-        slave_dict[archive] = len(os.listdir(last_archive_dir)) - 1
-        for snapshot in os.listdir(last_snapshots_dir):
-            snapshot_dir = os.path.join(last_snapshots_dir, snapshot)
-            future = executor.submit(snapshots_statistic, snapshot_dir)
+            future = executor.submit(archive_statistic, last_archive_dir)
             future_tasks.append(future)
 
+        wait(future_tasks)
 
+        for f in future_tasks:
+            res = f.result()
+            ons = res["on"]
+            dm_dns = res["dm_dn"]
 
+            for on in ons:
+                if on in on_statistic:
+                    on_statistic[on]["num"] += ons[on]["num"]
+                else:
+                    on_statistic[on] = ons[on]
+
+            for dm_dn in dm_dns:
+                if dm_dn in dm_dn_statistic:
+                    dm_dn_statistic[dm_dn]["num"] += dm_dns[dm_dn]["num"]
+                else:
+                    dm_dn_statistic[dm_dn] = dm_dns[dm_dn]
+
+    return archive_stat
 
 
 def snapshots_statistic(mac_dir):
