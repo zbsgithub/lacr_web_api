@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     "django_celery_beat",
-    "django_celery_results",
     'logotemplat',
     'system_info',
     'statistics_info'
@@ -239,7 +238,4 @@ ALLOWED_HOSTS = ['*', ]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-#################################
-# celery
-#################################
-CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BROKER_URL = "redis://10.31.24.231:6379/0"
