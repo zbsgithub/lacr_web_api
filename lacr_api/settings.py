@@ -242,4 +242,4 @@ CORS_ALLOW_CREDENTIALS = True
 #################################
 # celery
 #################################
-CELERY_RESULT_BACKEND = 'django-cache'
+CELERY_RESULT_BACKEND = 'django-db'
