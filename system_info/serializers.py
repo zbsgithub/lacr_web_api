@@ -29,6 +29,7 @@ class BrandSerializer(serializers.ModelSerializer):
 
 class ChNameSerializer(serializers.ModelSerializer):
     image = Base64ImageField(help_text="台标图片")
+    type_name = serializers.CharField(source="classify.name", read_only=True, help_text="分类名称")
 
     class Meta:
         model = ChannelName
