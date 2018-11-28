@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import os
+import json
 import traceback
 import datetime
 from concurrent.futures import ThreadPoolExecutor as Pool
@@ -113,7 +114,9 @@ def task_archive_statistic(archive_path):
                 else:
                     dm_dn_statistic[dm_dn] = dm_dns[dm_dn]
 
-    return archive_stat
+    with open("/root/snap.txt", "w") as f:
+        js = json.dumps(archive_stat)
+        f.write(js)
 
 
 def snapshots_statistic(mac_dir):
@@ -220,4 +223,9 @@ def image_upload_statistic(snapshots_dir):
 
                     if dm_dn_key not in upload_company_statistic[on]:
                         upload_company_statistic[on].append(dm_dn_key)
+
+    with open("/root/sp.txt", "w") as f:
+        js = json.dumps(upload_statistic)
+        f.write(js)
+
 
