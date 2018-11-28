@@ -10,7 +10,6 @@ app = Celery('lacr_api')
 
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
-app.bo
 
 app.autodiscover_tasks()
 
