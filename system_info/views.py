@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets, mixins
 from .models import Brand,Company, ChannelType, ChannelName
 from .serializers import CompanySerializer,BrandSerializer
-from .serializers import ChNameSerializer, ChTypeSerializer
+from .serializers import ChNameSerializer, ChTypeSerializer, ChTypeListSerializer
 from .filter import ChannelNameFilters, ChannelTypeFilters
 
 
@@ -29,4 +29,8 @@ class ChNameViewSet(viewsets.ModelViewSet):
     serializer_class = ChNameSerializer
     filter_class = ChannelNameFilters
 
+
+class ChTypeListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
+    queryset = ChannelType.objects.all()
+    serializer_class = ChTypeListSerializer
 

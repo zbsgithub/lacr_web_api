@@ -16,6 +16,7 @@ router.register('company', views.CompanyView)
 router.register('brand', views.BrandView)
 router.register('chtype', views.ChTypeViewSet)
 router.register("chname", views.ChNameViewSet)
+router.register("chtypelist", views.ChTypeListViewSet)
 
 urlpatterns = [
     re_path('^', include(router.urls))

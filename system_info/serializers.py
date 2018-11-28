@@ -52,3 +52,14 @@ class ChTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChannelType
         fields = ("id", "name", "alias", "channel_count", "created_at", "updated_at")
+
+
+class ChTypeListSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True, help_text="id")
+    channel_count = serializers.IntegerField(source="get_channel_count", read_only=True, help_text="频道个数")
+    channelnames = ChNameSerializer(many=True, help_text="频道列表")
+
+    class Meta:
+        model = ChannelType
+        fields = ("id", "name", "alias", "channel_count", "channelnames", "created_at", "updated_at")
+

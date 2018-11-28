@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
+    "django_celery_beat",
+    "django_celery_results",
     'logotemplat',
     'system_info',
     'statistics_info'
@@ -223,6 +225,10 @@ LOGGING = {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
         },
+        'system_info': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+        },
     }
 }
 
@@ -232,3 +238,8 @@ LOGGING = {
 ALLOWED_HOSTS = ['*', ]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+#################################
+# celery
+#################################
+CELERY_RESULT_BACKEND = 'django-cache'
