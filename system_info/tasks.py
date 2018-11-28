@@ -227,5 +227,3 @@ def image_upload_statistic(snapshots_dir):
     with open("/root/sp.txt", "w") as f:
         js = json.dumps(upload_statistic)
         f.write(js)
-
-
