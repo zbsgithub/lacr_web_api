@@ -61,6 +61,7 @@ def archive_statistic(last_archive_dir):
 
 @shared_task
 def task_archive_statistic(archive_path):
+    logger.info("start archive upload statistic %s", archive_path)
     archive_stat = {
         "slave": {},
         "on": {},
@@ -140,9 +141,16 @@ def snapshots_statistic(mac_dir):
             with open(meta_file, 'r') as f:
                 for line in f:
                     line_info = line.strip().split(",")
-                    dm = line_info[3]
-                    on = line_info[7]
-                    dn = line_info[9]
+                    dm=None
+                    on=None
+                    dn=None
+                    try:
+                        dm = line_info[3]
+                        on = line_info[7]
+                        dn = line_info[9]
+                    except:
+                        logger.error("error index line %s", line)
+                        continue
 
                     dm_dn = "%s:%s" % (dm, dn)
 
@@ -195,6 +203,8 @@ def image_upload_statistic(snapshots_dir):
 
         for f in future_tasks:
             res = f.result()
+            print("res is: ", res)
+            logger.info("res is: %s", res)
             for on in res:
                 dm_dn = res[on]["dm_dn"]
                 num = res[on]["num"]
