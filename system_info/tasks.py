@@ -55,7 +55,7 @@ class DeviceStatistic(object):
                         logger.info("line %d: %s", i, v)
                 dm = line_info[4]
                 on = line_info[8]
-                dn = line_info[9]
+                dn = line_info[10]
                 dm_dn = "%s:%s" % (dm, dn)
 
                 if on in on_statistic:
