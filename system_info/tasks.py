@@ -20,9 +20,9 @@ class DeviceStatistic(object):
     def __init__(self, archive_path):
         self.archive_path = archive_path
         self.max_workers = 10
+        self.print_line = True
 
-    @staticmethod
-    def statistic(last_archive_dir):
+    def statistic(self, last_archive_dir):
         statistic = {
             "on": {},
             "dm_dn": {},
@@ -49,6 +49,10 @@ class DeviceStatistic(object):
             with open(device_list_csv, 'r') as f:
                 line = f.readline()
                 line_info = line.strip().split("\t")
+                if self.print_line:
+                    self.print_line = False
+                    for i, v in enumerate(line_info, 0):
+                        logger.info("line %d: %s", i, v)
                 dm = line_info[4]
                 on = line_info[8]
                 dn = line_info[9]
