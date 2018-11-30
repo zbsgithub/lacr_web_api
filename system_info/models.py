@@ -13,6 +13,9 @@ class Company(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'company'
 
+    def __str__(self):
+        return self.name
+
 
 class Brand(models.Model):
     name = models.CharField(max_length=65, default=None, verbose_name="品牌名称", help_text="品牌名称")
@@ -25,6 +28,9 @@ class Brand(models.Model):
         verbose_name = "brand信息"
         verbose_name_plural = verbose_name
         db_table = 'brand'
+
+    def __str__(self):
+        return self.name
 
 
 class ChannelType(models.Model):
