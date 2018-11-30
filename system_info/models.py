@@ -73,9 +73,9 @@ class ChannelName(models.Model):
 
 
 class Slave(models.Model):
-    name = models.CharField(max_length=65, blank=True, default=None, verbose_name="slave别名")
+    name = models.CharField(max_length=65, blank=True, null=True, verbose_name="slave别名")
     mac = models.CharField(max_length=65, blank=True, default=None, verbose_name="mac地址", unique=True)
-    ip = models.CharField(max_length=65, blank=True, default=None, verbose_name="ip地址")
+    ip = models.CharField(max_length=65, blank=True, null=True, verbose_name="ip地址")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="更新时间", help_text="更新时间")
 
