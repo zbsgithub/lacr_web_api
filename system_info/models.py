@@ -80,10 +80,10 @@ class Slave(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="更新时间", help_text="更新时间")
 
     class Meta:
-        verbose_name = "从机器信息"
+        verbose_name = "Slave信息"
         verbose_name_plural = verbose_name
         db_table = "slave"
 
     def __str__(self):
-        return self.name
+        return self.mac
 

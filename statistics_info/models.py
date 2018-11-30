@@ -10,7 +10,7 @@ class CompanyDeviceStatistic(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
 
     class Meta:
-        verbose_name = "厂商上传设备数"
+        verbose_name = "厂商上传设备数统计"
         verbose_name_plural = verbose_name
         db_table = 'companyDeviceStatistic'
 
@@ -22,7 +22,7 @@ class BrandDeviceStatistic(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
 
     class Meta:
-        verbose_name = "品牌上传设备数"
+        verbose_name = "品牌上传设备数统计"
         verbose_name_plural = verbose_name
         db_table = 'brandDeviceStatistic'
 
@@ -34,7 +34,7 @@ class SlaveDeviceStatistic(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
 
     class Meta:
-        verbose_name = "slaveStatistic信息"
+        verbose_name = "slave设备数统计"
         verbose_name_plural = verbose_name
         db_table = 'slaveDeviceStatistic'
 
