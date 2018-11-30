@@ -1,5 +1,6 @@
 from django.db import models
-
+from system_info.models import Company
+from system_info.models import Brand
 # Create your models here.
 
 
@@ -42,3 +43,27 @@ class SlaveStatistic(models.Model):
         verbose_name = "slaveStatistic信息"
         verbose_name_plural = verbose_name
         db_table = 'slaveStatistic'
+
+
+
+class CompanyDailyImg(models.Model):
+    num = models.IntegerField(default=None, verbose_name="图片数", help_text="图片数")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
+    company = models.ForeignKey(Company, related_name="company_daily_img",on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "company_daily_img信息"
+        verbose_name_plural = verbose_name
+        db_table = 'company_daily_img'
+'''
+model daily dynamic
+'''
+class BrandDailyImg(models.Model):
+    num = models.IntegerField(default=None, verbose_name="图片数", help_text="型号数")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
+    brand_daily_img = models.ForeignKey(Brand, related_name="brand_daily_img", on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "brand_daily_img信息"
+        verbose_name_plural = verbose_name
+        db_table = 'brand_daily_img'
