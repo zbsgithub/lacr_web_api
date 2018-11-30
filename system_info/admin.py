@@ -1,5 +1,15 @@
 from django.contrib import admin
-from .models import ChannelType, ChannelName, Slave
+from .models import ChannelType, ChannelName, Slave, Company, Brand
+
+
+class CompanyAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "alias", "created_at", "updated_at", )
+admin.site.register(Company, CompanyAdmin)
+
+
+class BrandAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "alias", "company", "created_at", "updated_at", )
+admin.site.register(Brand, BrandAdmin)
 
 
 class ChannelTypeAdmin(admin.ModelAdmin):
