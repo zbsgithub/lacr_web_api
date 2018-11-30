@@ -128,12 +128,16 @@ class DeviceStatistic(object):
 
     @staticmethod
     def save(statistic):
+        with open("/root/s.txt", "w") as f:
+            import json
+            s = json.dumps(statistic)
+            f.write(s)
+            f.flush()
         slave_statistics = statistic["slave"]
         company_statistics = statistic["on"]
         brand_statistics = statistic["dm_dn"]
 
         for slave in slave_statistics:
-            slave_obj = None
             try:
                 slave_obj = Slave.objects.get(mac=slave)
             except ObjectDoesNotExist:
@@ -144,6 +148,7 @@ class DeviceStatistic(object):
                 slave_obj.save()
             except MultipleObjectsReturned:
                 logger.error("more than one slave %s", slave)
+                continue
 
             slave_device_statistic = SlaveDeviceStatistic(
                 slave=slave_obj,
