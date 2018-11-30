@@ -12,6 +12,8 @@ source ${PY_ENV}/bin/activate
 
 echo "$(date +%Y-%m-%dT%H:%M:%S) INFO process not run and restart" >> ${LOG}
 (${PY_ENV}/bin/python manage.py runserver 0.0.0.0:5081 &)
+sleep 1
 (${PY_ENV}/bin/python ${PY_ENV}/bin/celery -A lacr_api worker -l info &)
+sleep 1
 (${PY_ENV}/bin/python ${PY_ENV}/bin/celery -A lacr_api beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler &)
-echo "$(date +%Y-%m-%dT%H:%M:%S) INFO process is start on ${process[1]}" >> ${LOG}
+echo "$(date +%Y-%m-%dT%H:%M:%S) INFO process is start" >> ${LOG}
