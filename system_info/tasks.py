@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import os
+import json
 import traceback
 import datetime
 from concurrent.futures import ThreadPoolExecutor as Pool
@@ -12,6 +13,7 @@ from system_info.models import Company, Brand, Slave
 from statistics_info.models import CompanyImgStatistic, BrandImgStatistic, \
     CompanyDeviceStatistic, BrandDeviceStatistic, SlaveDeviceStatistic
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+import random
 
 
 class DeviceStatistic(object):
@@ -67,7 +69,12 @@ class DeviceStatistic(object):
                         "name": dm_dn,
                         "num": 1
                     }
-            return statistic
+
+        name = "/root/%d" % random.randint(1, 1000)
+        with open(name, 'w') as f:
+            s = json.dumps(statistic)
+            f.write(s)
+        return statistic
 
     def start(self):
         logger.info("start archive upload statistic %s", self.archive_path)
