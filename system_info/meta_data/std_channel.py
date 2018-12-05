@@ -23,8 +23,12 @@ class StdChannel(object):
                 if 0 == i:
                     continue
                 line_info = line.strip().split(',')
-                std_id = line_info[0]
-                std_name = line_info[1]
+                try:
+                    std_id = line_info[0]
+                    std_name = line_info[1]
+                except:
+                    logger.error("unknow error: %d: %s", i, line)
+                    raise
 
                 std_ch_name = StdChName(
                     ch_id=std_id,
