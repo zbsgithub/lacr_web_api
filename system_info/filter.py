@@ -17,4 +17,4 @@ class AliasChFilters(filters.FilterSet):
 
     class Meta:
         model = AliasChName
-        fields = ["name", "classify"]
+        fields = ["name", ]
