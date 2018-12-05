@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from system_info.models import StdChName, AliasChName
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 import logging
+import time
 import traceback
 
 logger = logging.getLogger(__name__)
@@ -28,6 +29,7 @@ class StdChannel(object):
                     std_name = line_info[1]
                 except:
                     logger.error("unknow error: %d: %s", i, line)
+                    time.sleep(5)
                     raise
 
                 try:
