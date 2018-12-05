@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 @shared_task
 def load_channel_name(std_csv, alias_csv, enable=False):
     logger.info("load channel name enable %s", enable)
-    if enable:
+    if not enable:
         logging.debug("no need flush std channel")
         return
 
