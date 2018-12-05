@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from system_info.models import StdChName, AliasChName
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 import logging
 import traceback
 
@@ -30,11 +30,18 @@ class StdChannel(object):
                     logger.error("unknow error: %d: %s", i, line)
                     raise
 
-                std_ch_name = StdChName(
-                    ch_id=std_id,
-                    name=std_name,
-                )
-                std_ch_name.save()
+                try:
+                    StdChName.objects.get(ch_id=std_id)
+                except ObjectDoesNotExist:
+                    std_ch_name = StdChName(
+                        ch_id=std_id,
+                        name=std_name,
+                    )
+                    std_ch_name.save()
+                except MultipleObjectsReturned:
+                    continue
+                except:
+                    logger.error("load std ch unknonw exception %d: %s error: %s", i, line, traceback.format_exc())
 
     def load_alias_ch(self):
         with open(self._alias_csv, "r", encoding="UTF-8") as f:
