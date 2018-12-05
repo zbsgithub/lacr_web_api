@@ -6,6 +6,7 @@ if [ ! -f ${LOG} ]; then
     touch ${LOG}
 fi
 
+export PYTHONIOENCODING=utf-8
 export PYTHONPATH=$PYTHONPATH:${WORK_DIR}
 mkdir -p ${WORK_DIR}/log/
 source ${PY_ENV}/bin/activate
