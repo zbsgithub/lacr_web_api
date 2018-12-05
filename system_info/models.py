@@ -33,31 +33,9 @@ class Brand(models.Model):
         return self.name
 
 
-class ChannelType(models.Model):
-    name = models.CharField(max_length=200, verbose_name="类型名称", help_text="类型名称", unique=True)
-    alias = models.CharField(max_length=200, verbose_name="类型别名", help_text="类型别名")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="更新时间", help_text="更新时间")
-
-    class Meta:
-        verbose_name = "频道类型信息"
-        verbose_name_plural = verbose_name
-        db_table = "channel_type"
-
-    def __str__(self):
-        return self.name
-
-    @property
-    def get_channel_count(self):
-        return self.channelnames.count()
-
-
-class ChannelName(models.Model):
-    classify = models.ForeignKey(ChannelType, related_name="channelnames", on_delete=models.SET_NULL, null=True,
-                                 verbose_name="频道类别", help_text="频道类别")
-    chid = models.CharField(max_length=65, default=None, verbose_name="频道id", help_text="频道id")
-    name = models.CharField(max_length=200, verbose_name="频道名称", help_text="频道名称", unique=True)
-    alias = models.CharField(max_length=200, verbose_name="频道别名", help_text="频道别名")
+class StdChName(models.Model):
+    ch_id = models.CharField(max_length=65, default=None, verbose_name="频道id", unique=True, help_text="频道id")
+    name = models.CharField(max_length=200, verbose_name="频道名称", help_text="频道名称")
     image = models.ImageField(upload_to="system_info/std_channel/", null=True,
                               verbose_name="频道图片", help_text="频道图片")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
@@ -66,7 +44,27 @@ class ChannelName(models.Model):
     class Meta:
         verbose_name = "频道名称信息"
         verbose_name_plural = verbose_name
-        db_table = "channel_name"
+        db_table = "std_channel"
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def get_alias(self):
+        return self.aliaschnames
+
+
+class AliasChName(models.Model):
+    std_ch = models.ForeignKey(StdChName, related_name="aliaschnames", on_delete=models.CASCADE,
+                               verbose_name="频道别名表", help_text="频道别名表")
+    name = models.CharField(max_length=200, verbose_name="频道名称", help_text="频道名称", unique=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="更新时间", help_text="更新时间")
+
+    class Meta:
+        verbose_name = "频道别名"
+        verbose_name_plural = verbose_name
+        db_table = "alias_channel"
 
     def __str__(self):
         return self.name

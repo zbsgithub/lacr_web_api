@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import django_filters.rest_framework as filters
-from .models import ChannelType, ChannelName
+from .models import StdChName, AliasChName
 
 
-class ChannelTypeFilters(filters.FilterSet):
+class StdChFilters(filters.FilterSet):
     name = filters.CharFilter(lookup_expr="exact")
 
     class Meta:
-        model = ChannelType
+        model = StdChName
         fields = ["name", ]
 
 
-class ChannelNameFilters(filters.FilterSet):
+class AliasChFilters(filters.FilterSet):
     name = filters.CharFilter(lookup_expr="exact")
 
     class Meta:
-        model = ChannelName
+        model = AliasChFilters
         fields = ["name", "classify"]

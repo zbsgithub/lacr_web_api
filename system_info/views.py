@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets, mixins
-from .models import Brand,Company, ChannelType, ChannelName
-from .serializers import CompanySerializer,BrandSerializer
-from .serializers import ChNameSerializer, ChTypeSerializer, ChTypeListSerializer
-from .filter import ChannelNameFilters, ChannelTypeFilters
+from .models import Brand,Company, StdChName, AliasChName
+from .serializers import CompanySerializer, BrandSerializer, StdChSerializer, AliasChSerializer
+from .filter import AliasChFilters, StdChFilters
 
 
 class CompanyView(viewsets.ModelViewSet):
@@ -11,26 +10,20 @@ class CompanyView(viewsets.ModelViewSet):
     serializer_class = CompanySerializer
 
 
-
-
 class BrandView(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
 
 
-class ChTypeViewSet(viewsets.ModelViewSet):
-    queryset = ChannelType.objects.all()
-    serializer_class = ChTypeSerializer
-    filter_class = ChannelTypeFilters
+class StdChViewSet(viewsets.ModelViewSet):
+    queryset = StdChName.objects.all()
+    serializer_class = StdChSerializer
+    filter_class = StdChFilters
 
 
-class ChNameViewSet(viewsets.ModelViewSet):
-    queryset = ChannelName.objects.all()
-    serializer_class = ChNameSerializer
-    filter_class = ChannelNameFilters
+class AliasChViewSet(viewsets.ModelViewSet):
+    queryset = AliasChName.objects.all()
+    serializer_class = AliasChSerializer
+    filter_class = AliasChFilters
 
-
-class ChTypeListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
-    queryset = ChannelType.objects.all()
-    serializer_class = ChTypeListSerializer
 
