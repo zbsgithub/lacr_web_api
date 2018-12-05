@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 import os
 import logging
+import traceback
 from celery import shared_task
 from system_info.meta_data.std_channel import StdChannel
 
@@ -23,6 +24,9 @@ def load_channel_name(std_csv, alias_csv, enable=False):
         logger.error("not found alias csv file %s", alias_csv)
         return
 
-    std_channel = StdChannel(std_csv=std_csv, alias_csv=alias_csv)
-    std_channel.save()
+    try:
+        std_channel = StdChannel(std_csv=std_csv, alias_csv=alias_csv)
+        std_channel.save()
+    except:
+        logger.error("load_channel_name exception %s", traceback.format_exc())
 

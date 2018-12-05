@@ -18,7 +18,7 @@ class StdChannel(object):
         self._alias_dict = dict()
 
     def load_std_ch(self):
-        with open(self._std_csv) as f:
+        with open(self._std_csv, "r") as f:
             for i, line in enumerate(f, 0):
                 if 0 == i:
                     continue
@@ -33,7 +33,7 @@ class StdChannel(object):
                 std_ch_name.save()
 
     def load_alias_ch(self):
-        with open(self._alias_csv) as f:
+        with open(self._alias_csv, "r") as f:
             for i, line in enumerate(f, 0):
                 if 0 == i:
                     continue
