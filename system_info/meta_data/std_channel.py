@@ -58,10 +58,11 @@ class StdChannel(object):
                 try:
                     std_ch_obj = StdChName.objects.get(ch_id=std_id)
                 except ObjectDoesNotExist:
-                    logger.warning("load_alias_ch std no exist %s:%s", std_id, alias)
+                    logger.warning("load_alias_ch std no exist %s:%s  %d:%s", std_id, alias, i, line)
                     continue
                 except:
-                    logger.error("load_alias_ch unknown error %s:%s error(%s)", std_id, alias, traceback.format_exc())
+                    logger.error("load_alias_ch unknown error %s:%s %d:%s error(%s)", std_id, alias,
+                                 i, line, traceback.format_exc())
                     continue
 
                 try:
@@ -74,8 +75,8 @@ class StdChannel(object):
                     )
                     alias_ch_obj.save()
                 except:
-                    logger.error("load_alias_ch save alias unknown error %s:%s error(%s)",
-                                 std_id, alias, traceback.format_exc())
+                    logger.error("load_alias_ch save alias unknown error %s:%s %d:%s error(%s)",
+                                 std_id, alias, i, line, traceback.format_exc())
 
     def save(self):
         self.load_std_ch()
