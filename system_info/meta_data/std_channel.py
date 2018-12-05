@@ -51,7 +51,7 @@ class StdChannel(object):
                 if 0 == i:
                     continue
 
-                line_info = line.strip().split(',')
+                line_info = line.strip().split('\t')
                 alias = line_info[1]
                 std_id = line_info[2]
 
