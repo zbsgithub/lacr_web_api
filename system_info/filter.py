@@ -16,5 +16,5 @@ class AliasChFilters(filters.FilterSet):
     name = filters.CharFilter(lookup_expr="exact")
 
     class Meta:
-        model = AliasChFilters
+        model = AliasChName
         fields = ["name", "classify"]
