@@ -26,6 +26,8 @@ class BrandSerializer(serializers.ModelSerializer):
 
 class AliasChSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True, help_text="id")
+    std_id = serializers.CharField(source="std_ch.ch_id", read_only=True, help_text="标准id")
+    std_name = serializers.CharField(source="std_ch.name", read_only=True, help_text="标准名称")
 
     class Meta:
         model = AliasChName

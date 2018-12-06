@@ -20,7 +20,3 @@ router.register("alias_ch", views.AliasChViewSet)
 urlpatterns = [
     re_path('^', include(router.urls))
 ]
-
-
-
-
