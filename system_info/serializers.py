@@ -35,6 +35,7 @@ class AliasChSerializer(serializers.ModelSerializer):
 
 
 class StdChSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True, help_text="id")
     image = Base64ImageField(help_text="台标图片", required=False)
     alias = AliasChSerializer(source="get_alias", many=True, read_only=True, help_text="别名列表")
 
