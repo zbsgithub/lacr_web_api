@@ -41,6 +41,6 @@ class StdChSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StdChName
-        fields = ("ch_id", "name", "image", "created_at", "updated_at", "alias")
+        fields = "__all__"
 
 
