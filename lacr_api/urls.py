@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import re_path, include
 import logotemplat.urls
 import system_info.urls
+import statistics_info.urls
 from lacr_api.settings import MEDIA_ROOT, MEDIA_URL
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
@@ -28,6 +29,8 @@ urlpatterns = [
     re_path('^admin/', admin.site.urls),
     re_path('^logotemplat/', include(logotemplat.urls)),
     re_path('^systeminfo/', include(system_info.urls)),
+    re_path('^datastatistic/', include(statistics_info.urls)),#统计相关接口
+
     re_path('^media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),
     re_path('^docs/', include_docs_urls(title='LACR API')),
 ]
