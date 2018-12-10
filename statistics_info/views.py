@@ -36,10 +36,11 @@ class MacOverView(APIView):
         result = {}
 
         # 先获得时间数组格式的日期
-        yesterday = (datetime.datetime.now() - datetime.timedelta(days=1))
+        # yesterday = (datetime.datetime.now() - datetime.timedelta(days=1))
+        yesterday = datetime.datetime.now()
         formate_time = yesterday.strftime("%Y-%m-%d")# %H:%M:%S
         print(formate_time)
-        queryset = CompanyDeviceStatistic.objects.filter(created_at__gte=str(formate_time))
+        queryset = CompanyDeviceStatistic.objects.filter(created_at__gt=str(formate_time))
         print("集合大小：%d " % queryset.__len__())
         total_num = 0
         temp_array = []
@@ -94,3 +95,64 @@ class BrandTrendView(APIView):
         # queryset = CompanyDeviceStatistic.objects.all()
         # serializer_class = CompanyDeviceStatisticSerializer(queryset,many=True)
         return Response(status.HTTP_200_OK)
+
+class LoginView(APIView):
+    """
+        post:
+
+        > 登录接口
+
+    """
+    def post(self, request, *args, **kwargs):
+        print('12333')
+        user_name = request.data.get("userName")
+        pwd = request.data.get("password")
+        # user = User.objects.filter(user=user, pwd=pwd).first()
+        res = {"state_code": 200, "msg": None}
+        if user_name == 'super_admin':
+            # random_str = get_random_str(user.user)
+            # user_token_obj = Token.objects.update_or_create(user=user, defaults={"token": random_str})
+            res['msg'] = "success"
+            res["state_code"] = 200
+            res['token'] = "super_admin"
+        else:
+            res["msg"] = "用户名或者密码错误"
+            res["state_code"] = 110
+
+        return Response(data=res,status=status.HTTP_200_OK)
+
+class GetUserInfo(APIView):
+    """
+        get:
+
+        > 获取用户信息
+
+    """
+    def get(self, request, *args, **kwargs):
+        token = request.data.get("token")
+        res = {"state_code": 200, "msg": None}
+        print(token)
+        # if token == "super_admin":
+        #     res['msg'] = "success"
+        #     res["state_code"] = 200
+        #
+        #     res['token'] = "super_admin"
+        #     res['name'] = "super_admin"
+        #     res['user_id'] = "1"
+        #     res['access'] = ['super_admin', 'admin'],
+        #     res['avator'] = 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png'
+        #
+        # else:
+        #     res['msg'] = "get user info faild"
+        #     res["state_code"] = 201
+        # res['token'] = "super_admin"
+        res['msg'] = "success"
+        res["state_code"] = 200
+
+        res['token'] = "super_admin"
+        res['name'] = "super_admin"
+        res['user_id'] = "1"
+        res['access'] = ['super_admin', 'admin'],
+        res['avator'] = 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png'
+
+        return Response(data=res, status=status.HTTP_200_OK)
