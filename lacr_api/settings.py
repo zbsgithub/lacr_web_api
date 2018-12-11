@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "django_celery_beat",
     'logotemplat',
     'system_info',
-    'statistics_info'
+    'statistics_info',
+    'user'
 ]
 
 MIDDLEWARE = [
