@@ -35,7 +35,7 @@ class Brand(models.Model):
 
 class StdChName(models.Model):
     ch_id = models.CharField(max_length=65, default=None, verbose_name="频道id", unique=True, help_text="频道id")
-    name = models.CharField(max_length=200, verbose_name="频道名称", help_text="频道名称")
+    name = models.CharField(max_length=200, verbose_name="频道名称", help_text="频道名称", unique=True)
     image = models.ImageField(upload_to="system_info/std_channel/", blank=True, null=True,
                               verbose_name="频道图片", help_text="频道图片")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
