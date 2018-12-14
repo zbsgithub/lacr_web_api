@@ -33,7 +33,7 @@ urlpatterns = [
     re_path('^systeminfo/', include(system_info.urls)),
     re_path('^datastatistic/', include(statistics_info.urls)),#统计相关接口
 
-    re_path('^user_login/', include(user.urls)),#统计相关接口
+    re_path('^user/', include(user.urls)),#登录相关接口
 
     re_path('^media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),
     re_path('^docs/', include_docs_urls(title='LACR API')),

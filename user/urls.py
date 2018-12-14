@@ -16,4 +16,5 @@ router = DefaultRouter()
 urlpatterns = [
     re_path(r'^login/',  views.UserLoginView.as_view()),
     re_path(r'^logout/', views.UserLogoutView.as_view()),
+    re_path(r'^get_info/', views.UserGetInfo.as_view()),
 ]
