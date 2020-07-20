@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterModelOptions(
-            name='slave',
-            options={'verbose_name': 'Slave信息', 'verbose_name_plural': 'Slave信息'},
+            name='subordinate',
+            options={'verbose_name': 'Subordinate信息', 'verbose_name_plural': 'Subordinate信息'},
         ),
     ]
