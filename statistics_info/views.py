@@ -14,7 +14,7 @@ import json
 from rest_framework.views import APIView
 # Create your views here.
 import datetime
-from .models import Company,SlaveDeviceStatistic,Slave
+from .models import Company,SubordinateDeviceStatistic,Subordinate
 
 from django.http import HttpResponse
 import time
@@ -64,13 +64,13 @@ class MacOverView(APIView):
         temp_array_total.append({'title':'总设备数','count':total_num,'icon':'md-person-add','color': '#2d8cf0'})
         result['top'] = temp_array_total + temp_array
 
-        #center left data slaveDeviceStatistic
-        slave_datas = SlaveDeviceStatistic.objects.filter(created_at__gte=str(formate_time))
+        #center left data subordinateDeviceStatistic
+        subordinate_datas = SubordinateDeviceStatistic.objects.filter(created_at__gte=str(formate_time))
         result['center_left']=[]
-        for slave in slave_datas:
+        for subordinate in subordinate_datas:
             item = {}
-            item['name'] = Slave.objects.get(id=slave.slave_id).mac
-            item['value'] = slave.num
+            item['name'] = Subordinate.objects.get(id=subordinate.subordinate_id).mac
+            item['value'] = subordinate.num
             result['center_left'].append(item)
 
         return Response(data=self.get_return_result(self,status.HTTP_200_OK,result,'success'))

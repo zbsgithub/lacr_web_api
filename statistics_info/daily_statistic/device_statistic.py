@@ -6,8 +6,8 @@ import traceback
 import datetime
 from concurrent.futures import wait
 from concurrent.futures import ThreadPoolExecutor as Pool
-from system_info.models import Brand, Company, Slave
-from statistics_info.models import BrandDeviceStatistic, CompanyDeviceStatistic, SlaveDeviceStatistic
+from system_info.models import Brand, Company, Subordinate
+from statistics_info.models import BrandDeviceStatistic, CompanyDeviceStatistic, SubordinateDeviceStatistic
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 
@@ -77,11 +77,11 @@ class DeviceStatistic(object):
     def start(self):
         logger.info("start archive upload statistic %s", self.archive_path)
         archive_stat = {
-            "slave": {},
+            "subordinate": {},
             "on": {},
             "dm_dn": {},
         }
-        slave_statistic = archive_stat["slave"]
+        subordinate_statistic = archive_stat["subordinate"]
         dm_dn_statistic = archive_stat["dm_dn"]
         on_statistic = archive_stat["on"]
         logger.info("start statistic archive path %s", self.archive_path)
@@ -102,7 +102,7 @@ class DeviceStatistic(object):
                     logging.error("archive dir no exist %s", last_archive_dir)
                     continue
 
-                slave_statistic[archive] = {
+                subordinate_statistic[archive] = {
                     "name": archive,
                     "num": len(os.listdir(last_archive_dir)) - 1,
                 }
@@ -138,28 +138,28 @@ class DeviceStatistic(object):
             s = json.dumps(statistic)
             f.write(s)
             f.flush()
-        slave_statistics = statistic["slave"]
+        subordinate_statistics = statistic["subordinate"]
         company_statistics = statistic["on"]
         brand_statistics = statistic["dm_dn"]
 
-        for slave in slave_statistics:
+        for subordinate in subordinate_statistics:
             try:
-                slave_obj = Slave.objects.get(mac=slave)
+                subordinate_obj = Subordinate.objects.get(mac=subordinate)
             except ObjectDoesNotExist:
-                logger.info("new slave insert %s", slave)
-                slave_obj = Slave(
-                    mac=slave
+                logger.info("new subordinate insert %s", subordinate)
+                subordinate_obj = Subordinate(
+                    mac=subordinate
                 )
-                slave_obj.save()
+                subordinate_obj.save()
             except MultipleObjectsReturned:
-                logger.error("more than one slave %s", slave)
+                logger.error("more than one subordinate %s", subordinate)
                 continue
 
-            slave_device_statistic = SlaveDeviceStatistic(
-                slave=slave_obj,
-                num=slave_statistics[slave]["num"],
+            subordinate_device_statistic = SubordinateDeviceStatistic(
+                subordinate=subordinate_obj,
+                num=subordinate_statistics[subordinate]["num"],
             )
-            slave_device_statistic.save()
+            subordinate_device_statistic.save()
 
         for company in company_statistics:
             try:

@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('system_info', '0005_slave'),
+        ('system_info', '0005_subordinate'),
         ('statistics_info', '0002_branddailyimg_companydailyimg'),
     ]
 
@@ -69,17 +69,17 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='SlaveDeviceStatistic',
+            name='SubordinateDeviceStatistic',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('num', models.IntegerField(default=None, help_text='设备数', verbose_name='设备数')),
                 ('created_at', models.DateTimeField(auto_now_add=True, help_text='创建时间', verbose_name='创建时间')),
-                ('slave', models.ForeignKey(help_text='从', on_delete=django.db.models.deletion.CASCADE, related_name='slave_device_statistic', to='system_info.Slave', verbose_name='从')),
+                ('subordinate', models.ForeignKey(help_text='从', on_delete=django.db.models.deletion.CASCADE, related_name='subordinate_device_statistic', to='system_info.Subordinate', verbose_name='从')),
             ],
             options={
-                'verbose_name_plural': 'slaveStatistic信息',
-                'db_table': 'slaveDeviceStatistic',
-                'verbose_name': 'slaveStatistic信息',
+                'verbose_name_plural': 'subordinateStatistic信息',
+                'db_table': 'subordinateDeviceStatistic',
+                'verbose_name': 'subordinateStatistic信息',
             },
         ),
         migrations.RemoveField(
@@ -95,7 +95,7 @@ class Migration(migrations.Migration):
             name='firmUploadImgStatistic_id',
         ),
         migrations.DeleteModel(
-            name='SlaveStatistic',
+            name='SubordinateStatistic',
         ),
         migrations.DeleteModel(
             name='BrandDailyImg',

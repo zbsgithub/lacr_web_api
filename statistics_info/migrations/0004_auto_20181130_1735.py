@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             options={'verbose_name': '厂商上传设备数统计', 'verbose_name_plural': '厂商上传设备数统计'},
         ),
         migrations.AlterModelOptions(
-            name='slavedevicestatistic',
-            options={'verbose_name': 'slave设备数统计', 'verbose_name_plural': 'slave设备数统计'},
+            name='subordinatedevicestatistic',
+            options={'verbose_name': 'subordinate设备数统计', 'verbose_name_plural': 'subordinate设备数统计'},
         ),
     ]

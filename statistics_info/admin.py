@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CompanyDeviceStatistic, BrandDeviceStatistic, SlaveDeviceStatistic, \
+from .models import CompanyDeviceStatistic, BrandDeviceStatistic, SubordinateDeviceStatistic, \
     CompanyImgStatistic, BrandImgStatistic
 
 
@@ -13,9 +13,9 @@ class BrandDeviceStatisticAdmin(admin.ModelAdmin):
 admin.site.register(BrandDeviceStatistic, BrandDeviceStatisticAdmin)
 
 
-class SlaveDeviceStatisticAdmin(admin.ModelAdmin):
-    list_display = ("id", "slave", "num", "created_at", )
-admin.site.register(SlaveDeviceStatistic, SlaveDeviceStatisticAdmin)
+class SubordinateDeviceStatisticAdmin(admin.ModelAdmin):
+    list_display = ("id", "subordinate", "num", "created_at", )
+admin.site.register(SubordinateDeviceStatistic, SubordinateDeviceStatisticAdmin)
 
 
 class CompanyImgStatisticAdmin(admin.ModelAdmin):
