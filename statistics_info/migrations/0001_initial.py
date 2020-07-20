@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='SlaveStatistic',
+            name='SubordinateStatistic',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('ip', models.CharField(default=None, help_text='公司名称', max_length=65, verbose_name='公司名称')),
@@ -51,9 +51,9 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True, help_text='创建时间', verbose_name='创建时间')),
             ],
             options={
-                'verbose_name': 'slaveStatistic信息',
-                'verbose_name_plural': 'slaveStatistic信息',
-                'db_table': 'slaveStatistic',
+                'verbose_name': 'subordinateStatistic信息',
+                'verbose_name_plural': 'subordinateStatistic信息',
+                'db_table': 'subordinateStatistic',
             },
         ),
     ]

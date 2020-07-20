@@ -11,17 +11,17 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Slave',
+            name='Subordinate',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(blank=True, default=None, max_length=65, verbose_name='slave别名')),
+                ('name', models.CharField(blank=True, default=None, max_length=65, verbose_name='subordinate别名')),
                 ('mac', models.CharField(blank=True, default=None, max_length=65, unique=True, verbose_name='mac地址')),
                 ('ip', models.CharField(blank=True, default=None, max_length=65, verbose_name='ip地址')),
                 ('created_at', models.DateTimeField(auto_now_add=True, help_text='创建时间', verbose_name='创建时间')),
                 ('updated_at', models.DateTimeField(auto_now=True, help_text='更新时间', verbose_name='更新时间')),
             ],
             options={
-                'db_table': 'slave',
+                'db_table': 'subordinate',
                 'verbose_name': '从机器信息',
                 'verbose_name_plural': '从机器信息',
             },

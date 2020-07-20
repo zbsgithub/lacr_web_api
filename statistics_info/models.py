@@ -1,5 +1,5 @@
 from django.db import models
-from system_info.models import Brand, Slave, Company
+from system_info.models import Brand, Subordinate, Company
 # Create your models here.
 
 
@@ -27,16 +27,16 @@ class BrandDeviceStatistic(models.Model):
         db_table = 'brandDeviceStatistic'
 
 
-class SlaveDeviceStatistic(models.Model):
-    slave = models.ForeignKey(Slave, related_name="slave_device_statistic", on_delete=models.CASCADE,
+class SubordinateDeviceStatistic(models.Model):
+    subordinate = models.ForeignKey(Subordinate, related_name="subordinate_device_statistic", on_delete=models.CASCADE,
                               verbose_name="从", help_text="从")
     num = models.IntegerField(default=None, verbose_name="设备数", help_text="设备数")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间", help_text="创建时间")
 
     class Meta:
-        verbose_name = "slave设备数统计"
+        verbose_name = "subordinate设备数统计"
         verbose_name_plural = verbose_name
-        db_table = 'slaveDeviceStatistic'
+        db_table = 'subordinateDeviceStatistic'
 
 
 class CompanyImgStatistic(models.Model):
